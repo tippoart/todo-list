@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="css/output.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/dist/boxicons.js' rel='stylesheet'>
+</head>
+
+<body class="bg-slate-900">
+    <nav class=" border-gray-200 bg-slate-800 p-2">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">My Todo List</span>
+            </a>
+            <img class="w-16 rounded-full" src="../img/IMG-20210520-WA0013.jpg">
+        </div>
+    </nav>
+
+    <form action="#" class="xl:w-full md:w-96 sm:w-2    flex justify-center p-4 gap-2 bg-gray-600 rounded-e-md mt-9">
+        <input type="text" id="text" name="text" class="rounded-lg outline-0 p-1 xl:w-80 md:w-50 "
+            onkeydown="handleKeyPress(event)">
+        <button type="button" class="text-white bg-teal-600 hover:bg-teal-700 rounded-md p-1" onclick="tambah()">Tambah
+            List</button>
+    </form>
+
+    <div class="relative overflow-x-auto mt-10 ">
+        <table class="xl:w-full md:w-full sm:w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="  text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Kegiatan</th>
+                    <th scope="col" class="px-6 py-3">Action</th>
+                    <th scope="col" class="px-6 py-3 text-center">Status</th>
+                </tr>
+            </thead>
+            <tbody id="todo" class="bg-white border-b  dark:bg-gray-800 dark:border-gray-700 p-"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const todo = document.getElementById('todo');
+        let text = document.getElementById('text');
+
+        function tambah() {
+            let inputValue = text.value.trim();
+            if (inputValue !== "") {
+                let newtodo = "<tr>" +
+                    "<td class='p-4'>" + text.value + "</td>" +
+                    "<td class='px-6 py-4'>" +
+                    "<button class='bg-green-500 rounded-md text-white p-1' onclick='done(this)'>Done</button>" +
+                    "<button class='bg-red-400 rounded-md ms-2 p-1 text-white' onclick='hapus(this)'>Hapus</button>" +
+                    "</td>" +
+                    "<td id='panding' class='text-center'>padding</td>" +
+                    "</tr>";
+                todo.insertAdjacentHTML('beforeend', newtodo);
+                text.value = "";
+            }
+
+            else {
+                alert("Harap Isi Kegiatan Hari Ini")
+            }
+
+        }
+
+        function done(el) {
+            let panding = el.parentElement.nextElementSibling;
+            panding.innerText = "Done";
+        }
+
+        function hapus(el) {
+            el.parentElement.parentElement.remove();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                tambah();
+                event.preventDefault(); 
+            }
+        }
+
+    </script>
+</body>
+
+</html>
